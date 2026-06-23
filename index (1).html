@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FOTS — Feel Of The Spirit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Barlow:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:  #F4500A;
+      --yellow:  #F5C400;
+      --teal:    #00A89D;
+      --cream:   #FAF3E0;
+      --black:   #0E0E0E;
+      --red:     #D62828;
+      --font-display: 'Anton', sans-serif;
+      --font-head:    'Bebas Neue', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+      --font-body:    'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--black);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: var(--black);
+      border-bottom: 3px solid var(--orange);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+    .nav-cta {
+      background: var(--orange);
+      color: var(--black) !important;
+      padding: 0.4rem 1.2rem;
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--yellow); color: var(--black) !important; }
+
+    /* hamburger */
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 3px; background: var(--cream); display: block; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 3rem 5rem 4rem;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: 0.9;
+      color: var(--cream);
+      text-transform: uppercase;
+    }
+    .hero-title .accent { color: var(--orange); }
+    .hero-title .accent2 { color: var(--yellow); }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #aaa;
+      max-width: 380px;
+      font-style: italic;
+    }
+    .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--orange); color: var(--black); border-color: var(--orange); }
+    .btn-primary:hover { background: var(--yellow); border-color: var(--yellow); }
+    .btn-outline { background: transparent; color: var(--cream); border-color: var(--cream); }
+    .btn-outline:hover { background: var(--cream); color: var(--black); }
+
+    .hero-right {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-visual {
+      width: 100%; height: 100%;
+      background: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .hero-big-text {
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 14vw, 14rem);
+      color: rgba(0,0,0,0.15);
+      letter-spacing: -4px;
+      user-select: none;
+      line-height: 1;
+      text-align: center;
+    }
+    .hero-badge {
+      position: absolute;
+      top: 3rem; right: 3rem;
+      width: 110px; height: 110px;
+      background: var(--yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--black);
+      text-transform: uppercase;
+      line-height: 1.4;
+      animation: spin-badge 12s linear infinite;
+    }
+    @keyframes spin-badge {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .hero-stripe {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: repeating-linear-gradient(90deg, var(--orange) 0 40px, var(--yellow) 40px 80px, var(--teal) 80px 120px, var(--black) 120px 160px);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--orange);
+      padding: 0.75rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-track {
+      display: inline-block;
+      animation: marquee 18s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      letter-spacing: 4px;
+      color: var(--black);
+      margin-right: 3rem;
+    }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 7rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .about-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    .about-heading em { color: var(--orange); font-style: normal; }
+    .about-body {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #333;
+      max-width: 480px;
+    }
+    .about-body p + p { margin-top: 1rem; }
+    .about-visual {
+      position: relative;
+      aspect-ratio: 4/5;
+      background: var(--black);
+      overflow: hidden;
+    }
+    .about-visual-inner {
+      width: 100%; height: 100%;
+      background: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+    }
+    .about-big {
+      font-family: var(--font-display);
+      font-size: 8rem;
+      color: rgba(255,255,255,0.12);
+      letter-spacing: -4px;
+      line-height: 1;
+    }
+    .about-tag {
+      position: absolute;
+      bottom: -1.5rem; left: -1.5rem;
+      background: var(--yellow);
+      padding: 1.2rem 2rem;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .about-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SHOP ── */
+    #shop { padding: 7rem 4rem; background: var(--black); }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      color: var(--cream);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .section-title span { color: var(--yellow); }
+    .section-link {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--teal);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--teal);
+      padding-bottom: 2px;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-4px); border-color: var(--orange); }
+    .product-img {
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 6rem;
+      color: rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img.c1 { background: var(--orange); }
+    .product-img.c2 { background: var(--teal); }
+    .product-img.c3 { background: var(--red); }
+    .product-img.c4 { background: #5c2d91; }
+    .product-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: var(--yellow);
+      color: var(--black);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.6rem;
+    }
+    .product-body { padding: 1.2rem; }
+    .product-name {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      color: var(--cream);
+      letter-spacing: 1px;
+    }
+    .product-sub {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #666;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--yellow);
+    }
+    .product-add {
+      background: var(--orange);
+      color: var(--black);
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .product-add:hover { background: var(--yellow); }
+
+    /* ── LOOKBOOK ── */
+    #lookbook { padding: 7rem 4rem; }
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .lb-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .lb-item.tall { grid-row: span 2; }
+    .lb-inner {
+      width: 100%; height: 100%; min-height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: rgba(255,255,255,0.1);
+      transition: transform 0.4s;
+    }
+    .lb-item:hover .lb-inner { transform: scale(1.04); }
+    .lb-inner.lb1 { background: var(--teal); min-height: 460px; }
+    .lb-inner.lb2 { background: var(--orange); }
+    .lb-inner.lb3 { background: var(--black); }
+    .lb-inner.lb4 { background: #5c2d91; }
+    .lb-inner.lb5 { background: var(--red); }
+    .lb-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      color: var(--cream);
+      text-transform: uppercase;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      padding: 7rem 4rem;
+      background: var(--black);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .contact-info-block { display: flex; flex-direction: column; gap: 2rem; }
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+    }
+    .contact-icon {
+      width: 48px; height: 48px;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-item-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+    .contact-item-value {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      color: var(--cream);
+      letter-spacing: 1px;
+    }
+    .contact-item-value a {
+      color: var(--cream);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-item-value a:hover { color: var(--yellow); }
+    .contact-hours {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      border: 1px solid #222;
+      border-left: 4px solid var(--teal);
+    }
+    .contact-hours h4 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.8rem;
+    }
+    .contact-hours p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.8;
+    }
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: var(--cream);
+      padding: 0.9rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--orange); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #444; }
+    .form-group select { appearance: none; cursor: pointer; color: #aaa; }
+    .form-group select option { background: #1a1a1a; }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-submit {
+      background: var(--orange);
+      color: var(--black);
+      border: none;
+      padding: 1rem 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--yellow); }
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #444;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      #contact { padding: 5rem 2rem; }
+    }
+
+    /* ── NEWSLETTER ── */
+    #newsletter {
+      background: var(--orange);
+      padding: 6rem 4rem;
+      text-align: center;
+    }
+    .nl-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 6rem);
+      color: var(--black);
+      text-transform: uppercase;
+      line-height: 0.95;
+    }
+    .nl-sub {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: rgba(0,0,0,0.6);
+      margin-top: 1rem;
+    }
+    .nl-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 2.5rem auto 0;
+    }
+    .nl-form input {
+      flex: 1;
+      border: 2px solid var(--black);
+      border-right: none;
+      background: var(--cream);
+      padding: 1rem 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--black);
+      outline: none;
+    }
+    .nl-form input::placeholder { color: #999; }
+    .nl-form button {
+      background: var(--black);
+      color: var(--yellow);
+      border: 2px solid var(--black);
+      padding: 1rem 1.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nl-form button:hover { background: var(--yellow); color: var(--black); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 4rem;
+      border-top: 3px solid var(--orange);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .footer-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #555;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+    }
+    .footer-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li + li { margin-top: 0.6rem; }
+    .footer-col ul li a {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--cream); }
+    .footer-bottom {
+      border-top: 1px solid #222;
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: #444;
+      letter-spacing: 1px;
+    }
+    .footer-socials { display: flex; gap: 1.5rem; }
+    .footer-socials a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-socials a:hover { color: var(--yellow); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 4rem 2rem; }
+      #about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      .about-visual { display: none; }
+      #shop, #lookbook, #newsletter { padding: 5rem 2rem; }
+      .lookbook-grid { grid-template-columns: 1fr 1fr; }
+      .lb-item.tall { grid-row: auto; }
+      footer { padding: 3rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 560px) {
+      .lookbook-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .nl-form { flex-direction: column; }
+      .nl-form input { border-right: 2px solid var(--black); border-bottom: none; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    }
+
+    /* mobile nav open */
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--black);
+      padding: 1.5rem 2rem;
+      border-bottom: 3px solid var(--orange);
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">FOTS <span>®</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#lookbook">Lookbook</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#newsletter" class="nav-cta">Join the Cult</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Est. 2024 — Lagos, Nigeria</p>
+      <h1 class="hero-title">
+        Feel<br>
+        <span class="accent">Of</span><br>
+        The<br>
+        <span class="accent2">Spirit</span>
+      </h1>
+      <p class="hero-sub">Clothing that carries energy. Every piece is made for those who move with intention and dress with soul.</p>
+      <div class="hero-btns">
+        <a href="#shop" class="btn btn-primary">Shop Now</a>
+        <a href="#lookbook" class="btn btn-outline">View Lookbook</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hero-big-text">FOTS</div>
+        <div class="hero-badge">NEW<br>DROP<br>SS25</div>
+      </div>
+    </div>
+    <div class="hero-stripe"></div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>FEEL OF THE SPIRIT</span>
+      <span>★</span>
+      <span>FOTS CLOTHING</span>
+      <span>★</span>
+      <span>DRESS THE SOUL</span>
+      <span>★</span>
+      <span>NEW COLLECTION 2025</span>
+      <span>★</span>
+      <span>FEEL OF THE SPIRIT</span>
+      <span>★</span>
+      <span>FOTS CLOTHING</span>
+      <span>★</span>
+      <span>DRESS THE SOUL</span>
+      <span>★</span>
+      <span>NEW COLLECTION 2025</span>
+      <span>★</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <p class="about-label">Who We Are</p>
+      <h2 class="about-heading">Clothes<br>for the <em>bold</em><br>& the free</h2>
+      <div class="about-body">
+        <p>FOTS was born from a simple idea: your clothes should feel like an extension of your spirit. Not a costume, not a uniform — a statement of who you are and where you're going.</p>
+        <p>Every stitch carries intention. Every color tells a story. We design for the ones who refuse to be invisible.</p>
+      </div>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">500+</div>
+          <div class="stat-label">Pieces Sold</div>
+        </div>
+        <div>
+          <div class="stat-num">12</div>
+          <div class="stat-label">Collections</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Original Designs</div>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <div class="about-visual">
+        <div class="about-visual-inner">
+          <div class="about-big">FOTS</div>
+        </div>
+      </div>
+      <div class="about-tag">Since 2024</div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="shop">
+    <div class="section-header">
+      <h2 class="section-title">Latest <span>Drops</span></h2>
+      <a href="#" class="section-link">View All →</a>
+    </div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-img c1">
+          <div class="product-tag">New</div>
+          FOTS
+        </div>
+        <div class="product-body">
+          <div class="product-name">Spirit Tee Vol.1</div>
+          <div class="product-sub">Oversized / Unisex</div>
+          <div class="product-footer">
+            <div class="product-price">₦18,500</div>
+            <button class="product-add">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img c2">
+          <div class="product-tag">Best Seller</div>
+          FOTS
+        </div>
+        <div class="product-body">
+          <div class="product-name">Soul Hoodie</div>
+          <div class="product-sub">Heavy Fleece / Unisex</div>
+          <div class="product-footer">
+            <div class="product-price">₦32,000</div>
+            <button class="product-add">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img c3">
+          <div class="product-tag">Limited</div>
+          FOTS
+        </div>
+        <div class="product-body">
+          <div class="product-name">Vintage Cargo</div>
+          <div class="product-sub">Wide Leg / Washed</div>
+          <div class="product-footer">
+            <div class="product-price">₦27,500</div>
+            <button class="product-add">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img c4">
+          FOTS
+        </div>
+        <div class="product-body">
+          <div class="product-name">Spirit Cap</div>
+          <div class="product-sub">5-Panel / Adjustable</div>
+          <div class="product-footer">
+            <div class="product-price">₦9,000</div>
+            <button class="product-add">Add to Bag</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <section id="lookbook">
+    <div class="section-header">
+      <h2 class="section-title">Look<span>book</span></h2>
+      <a href="#" class="section-link">Full Gallery →</a>
+    </div>
+    <div class="lookbook-grid">
+      <div class="lb-item tall">
+        <div class="lb-inner lb1">FOTS</div>
+        <div class="lb-caption">Spirit Collection — SS25</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-inner lb2">FOTS</div>
+        <div class="lb-caption">The Hoodie Edit</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-inner lb3">FOTS</div>
+        <div class="lb-caption">Street Ready</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-inner lb4">FOTS</div>
+        <div class="lb-caption">Bold & Free</div>
+      </div>
+      <div class="lb-item">
+        <div class="lb-inner lb5">FOTS</div>
+        <div class="lb-caption">Vintage Mood</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+    </div>
+    <div class="contact-grid">
+
+      <!-- Info -->
+      <div>
+        <div class="contact-info-block">
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div class="contact-item-label">Email Us</div>
+              <div class="contact-item-value">
+                <a href="mailto:support.fots@gmail.com">support.fots@gmail.com</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <div class="contact-item-label">Call or WhatsApp</div>
+              <div class="contact-item-value">
+                <a href="tel:+2348112809556">+234 811 280 9556</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div>
+              <div class="contact-item-label">WhatsApp Chat</div>
+              <div class="contact-item-value">
+                <a href="https://wa.me/2348112809556" target="_blank">Chat on WhatsApp →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-hours">
+          <h4>Response Times</h4>
+          <p>
+            Email — within 24 hours<br>
+            WhatsApp / Calls — Mon to Sat, 9am – 7pm WAT
+          </p>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" placeholder="+234..." />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <select>
+              <option value="" disabled selected>Select a topic</option>
+              <option>Order Enquiry</option>
+              <option>Sizing Help</option>
+              <option>Returns & Refunds</option>
+              <option>Wholesale / Collab</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea placeholder="Tell us what's on your mind..."></textarea>
+          </div>
+          <button type="button" class="form-submit" id="formSubmit">Send Message</button>
+          <p class="form-note">We'll reply to your email within 24 hours.</p>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter">
+    <h2 class="nl-title">Join the<br>FOTS Family</h2>
+    <p class="nl-sub">Drop alerts, exclusive deals, and early access. No spam — just spirit.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com" />
+      <button type="button">Subscribe</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">FOTS</div>
+        <div class="footer-tagline">Feel Of The Spirit</div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Tees & Tops</a></li>
+          <li><a href="#">Hoodies</a></li>
+          <li><a href="#">Bottoms</a></li>
+          <li><a href="#">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Brand</h4>
+        <ul>
+          <li><a href="#">About FOTS</a></li>
+          <li><a href="#">Lookbook</a></li>
+          <li><a href="#">Collabs</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">Sizing Guide</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Feel Of The Spirit. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">TikTok</a>
+        <a href="#">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Subscribe button feedback
+    document.querySelector('.nl-form button').addEventListener('click', function() {
+      const input = document.querySelector('.nl-form input');
+      if (input.value) {
+        this.textContent = 'You\'re In ✓';
+        this.style.background = '#00A89D';
+        input.value = '';
+        setTimeout(() => {
+          this.textContent = 'Subscribe';
+          this.style.background = '';
+        }, 3000);
+      }
+    });
+
+    // Contact form feedback
+    document.getElementById('formSubmit').addEventListener('click', function() {
+      const form = document.getElementById('contactForm');
+      const inputs = form.querySelectorAll('input[required], input[type="email"]');
+      let valid = true;
+      inputs.forEach(i => { if (!i.value) valid = false; });
+      if (!valid) {
+        this.textContent = 'Fill required fields';
+        this.style.background = '#D62828';
+        setTimeout(() => { this.textContent = 'Send Message'; this.style.background = ''; }, 2500);
+        return;
+      }
+      this.textContent = 'Message Sent ✓';
+      this.style.background = '#00A89D';
+      form.querySelectorAll('input, textarea, select').forEach(el => el.value = '');
+      setTimeout(() => { this.textContent = 'Send Message'; this.style.background = ''; }, 3500);
+    });
+
+    // Add to bag feedback
+    document.querySelectorAll('.product-add').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const orig = this.textContent;
+        this.textContent = 'Added ✓';
+        this.style.background = '#00A89D';
+        setTimeout(() => {
+          this.textContent = orig;
+          this.style.background = '';
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
